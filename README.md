@@ -6,6 +6,7 @@ A basic MERN (MongoDB, Express, React, Node) stack app — a task manager with f
 
 - `backend/` — Express + Mongoose REST API (`/api/tasks`)
 - `frontend/` — React app (Vite) that consumes the API
+- `e2e/` — Playwright + TypeScript UI test suite for the frontend
 
 ## Prerequisites
 
