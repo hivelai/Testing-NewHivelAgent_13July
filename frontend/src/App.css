@@ -1,0 +1,78 @@
+.task-form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.task-form input {
+  flex: 1;
+  max-width: 400px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.task-form button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  opacity: 0.9;
+}
+
+.error {
+  color: #e5484d;
+  margin: 16px 0;
+}
+
+.task-list {
+  list-style: none;
+  padding: 24px 20px;
+  margin: 0 auto;
+  max-width: 480px;
+  text-align: left;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.task-list li span {
+  cursor: pointer;
+  flex: 1;
+}
+
+.task-list li.completed span {
+  text-decoration: line-through;
+  color: var(--text);
+}
+
+.task-list li button {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: var(--text-h);
+}
+
+.task-list li button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
