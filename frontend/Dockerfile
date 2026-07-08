@@ -16,3 +16,37 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
+
+
+
+dfasadfafd
+dfa
+ad
+f
+daad
+f
+dfa
+adf
+dfas
+fds
+fdas
+fdasfda
+
+daf
+fd
+afds
+adf
+dfa
+afd
+adf
+dfa
+dfa
+dfa
+daf
+d
+fa
+fda
+daf
+daf
+dfa
+adf
