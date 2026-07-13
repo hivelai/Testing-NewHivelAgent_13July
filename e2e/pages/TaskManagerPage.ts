@@ -4,6 +4,7 @@ export class TaskManagerPage {
   readonly page: Page;
   readonly titleInput: Locator;
   readonly addButton: Locator;
+  readonly formPrioritySelect: Locator;
   readonly taskList: Locator;
   readonly errorMessage: Locator;
 
@@ -11,6 +12,7 @@ export class TaskManagerPage {
     this.page = page;
     this.titleInput = page.getByPlaceholder('Add a new task...');
     this.addButton = page.getByRole('button', { name: 'Add' });
+    this.formPrioritySelect = page.locator('.task-form select');
     this.taskList = page.locator('.task-list');
     this.errorMessage = page.locator('.error');
   }
@@ -19,13 +21,29 @@ export class TaskManagerPage {
     await this.page.goto('/');
   }
 
-  async addTask(title: string) {
+  async addTask(title: string, priority?: 'low' | 'medium' | 'high') {
     await this.titleInput.fill(title);
+    if (priority) {
+      await this.formPrioritySelect.selectOption(priority);
+    }
     await this.addButton.click();
   }
 
   taskItem(title: string): Locator {
     return this.taskList.locator('li', { hasText: title });
+  }
+
+  taskPrioritySelect(title: string): Locator {
+    return this.taskItem(title).locator('.priority-select');
+  }
+
+  async setTaskPriority(title: string, priority: 'low' | 'medium' | 'high') {
+    await this.taskPrioritySelect(title).selectOption(priority);
+  }
+
+  async expectTaskPriority(title: string, priority: 'low' | 'medium' | 'high') {
+    await expect(this.taskPrioritySelect(title)).toHaveValue(priority);
+    await expect(this.taskPrioritySelect(title)).toHaveClass(new RegExp(`priority-${priority}`));
   }
 
   async toggleTask(title: string) {
