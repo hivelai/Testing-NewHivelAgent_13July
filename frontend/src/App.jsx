@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getTasks, createTask, updateTask, deleteTask } from './api';
+import Friends from './Friends';
 import './App.css';
 
 function App() {
@@ -109,6 +110,8 @@ function App() {
           ))}
         </ul>
       )}
+
+      <Friends />
     </div>
   );
 }

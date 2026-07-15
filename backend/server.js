@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const taskRoutes = require('./routes/tasks');
 const statsRoutes = require('./routes/stats');
 const commitMetricsRoutes = require('./routes/commitMetrics');
+const userRoutes = require('./routes/users');
+const friendRoutes = require('./routes/friends');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use('/api/tasks', taskRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/commit-metrics', commitMetricsRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/friends', friendRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });

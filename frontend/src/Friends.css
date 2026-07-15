@@ -1,0 +1,104 @@
+.friends {
+  max-width: 480px;
+  margin: 40px auto 0;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+
+.friends h2 {
+  text-align: center;
+}
+
+.friends-user-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.friends-user-switch select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.friends-form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.friends-form input {
+  flex: 1;
+  max-width: 220px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.friends-form button {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.friends-form button:hover {
+  opacity: 0.9;
+}
+
+.friends-message {
+  color: #2f9e44;
+  text-align: center;
+}
+
+.friends-section {
+  margin-top: 20px;
+}
+
+.friends-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.friends-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.friends-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.friends-actions button {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: var(--text-h);
+}
+
+.friends-actions button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
