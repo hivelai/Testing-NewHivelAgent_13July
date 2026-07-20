@@ -1,4 +1,4 @@
-const { wsNormalize, classifyChangedLines, REWORK_DAYS } = require('../services/metricsCalculator');
+const { wsNormalize, classifyChangedLines, calculateRatios, REWORK_DAYS } = require('../services/metricsCalculator');
 
 describe('wsNormalize', () => {
   it('collapses runs of spaces/tabs into a single space', () => {
@@ -425,5 +425,52 @@ describe('classifyChangedLines', () => {
     });
 
     expect(result).toEqual({ newwork: 0, rework: 0, assistance: 0, maintenance: 1 });
+  });
+});
+
+describe('calculateRatios', () => {
+  it('returns all zero ratios when there are no classified lines', () => {
+    expect(calculateRatios({ newwork: 0, rework: 0, assistance: 0, maintenance: 0 })).toEqual({
+      newworkRatio: 0,
+      reworkRatio: 0,
+      assistanceRatio: 0,
+      maintenanceRatio: 0,
+    });
+  });
+
+  it('defaults missing counts to zero', () => {
+    expect(calculateRatios({})).toEqual({
+      newworkRatio: 0,
+      reworkRatio: 0,
+      assistanceRatio: 0,
+      maintenanceRatio: 0,
+    });
+  });
+
+  it('computes each bucket as a share of the total', () => {
+    const result = calculateRatios({ newwork: 6, rework: 2, assistance: 1, maintenance: 1 });
+
+    expect(result).toEqual({
+      newworkRatio: 0.6,
+      reworkRatio: 0.2,
+      assistanceRatio: 0.1,
+      maintenanceRatio: 0.1,
+    });
+  });
+
+  it('gives a ratio of 1 to the only non-zero bucket', () => {
+    expect(calculateRatios({ newwork: 0, rework: 5, assistance: 0, maintenance: 0 })).toEqual({
+      newworkRatio: 0,
+      reworkRatio: 1,
+      assistanceRatio: 0,
+      maintenanceRatio: 0,
+    });
+  });
+
+  it('produces ratios that sum to 1 for any non-zero total', () => {
+    const result = calculateRatios({ newwork: 3, rework: 4, assistance: 5, maintenance: 1 });
+    const sum = result.newworkRatio + result.reworkRatio + result.assistanceRatio + result.maintenanceRatio;
+
+    expect(sum).toBeCloseTo(1);
   });
 });

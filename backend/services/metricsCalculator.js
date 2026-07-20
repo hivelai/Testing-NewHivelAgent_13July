@@ -102,4 +102,21 @@ function classifyChangedLines({
   return { newwork, rework, assistance, maintenance };
 }
 
-module.exports = { REWORK_DAYS, wsNormalize, classifyChangedLines };
+// Turns raw New Work / Rework / Assistance / Maintenance counts into their share of the
+// total classified lines, for use in summaries and charts. Returns all zeros when there's
+// nothing classified, rather than dividing by zero.
+function calculateRatios({ newwork = 0, rework = 0, assistance = 0, maintenance = 0 } = {}) {
+  const total = newwork + rework + assistance + maintenance;
+  if (total === 0) {
+    return { newworkRatio: 0, reworkRatio: 0, assistanceRatio: 0, maintenanceRatio: 0 };
+  }
+
+  return {
+    newworkRatio: newwork / total,
+    reworkRatio: rework / total,
+    assistanceRatio: assistance / total,
+    maintenanceRatio: maintenance / total,
+  };
+}
+
+module.exports = { REWORK_DAYS, wsNormalize, classifyChangedLines, calculateRatios };

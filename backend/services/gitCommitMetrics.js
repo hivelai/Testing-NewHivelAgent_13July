@@ -1,5 +1,5 @@
 const { execFileSync } = require('child_process');
-const { classifyChangedLines } = require('./metricsCalculator');
+const { classifyChangedLines, calculateRatios } = require('./metricsCalculator');
 
 function git(repoPath, args) {
   return execFileSync('git', args, {
@@ -123,7 +123,20 @@ async function computeCommitMetrics(repoPath, commitSha, parentShaInput) {
   const { authorEmail, commitDate } = getCommitMeta(repoPath, commitSha);
 
   if (!parentSha) {
-    return { commitSha, parentSha: null, authorEmail, commitDate, files: [], rework: 0, newwork: 0, maintenance: 0, assistance: 0, linesAdded: 0, linesRemoved: 0 };
+    return {
+      commitSha,
+      parentSha: null,
+      authorEmail,
+      commitDate,
+      files: [],
+      rework: 0,
+      newwork: 0,
+      maintenance: 0,
+      assistance: 0,
+      linesAdded: 0,
+      linesRemoved: 0,
+      ...calculateRatios({}),
+    };
   }
 
   const changedFiles = listChangedFiles(repoPath, parentSha, commitSha);
@@ -168,7 +181,7 @@ async function computeCommitMetrics(repoPath, commitSha, parentShaInput) {
     files.push({ path: file.newPath, oldPath: file.oldPath, status: file.status, additions: file.additions, deletions: file.deletions, ...fileMetrics });
   }
 
-  return { commitSha, parentSha, authorEmail, commitDate, files, ...totals };
+  return { commitSha, parentSha, authorEmail, commitDate, files, ...totals, ...calculateRatios(totals) };
 }
 
 module.exports = {
